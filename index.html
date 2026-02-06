@@ -9,5 +9,29 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <script type="module" src="/src/index.tsx"></script>
+
+    <script>
+      // GitHub Pages SPA restore: turn /<repo>/?/route back into /<repo>/route (keeps the URL clean).
+      (function restoreSpaRoute(location) {
+        // We only act on the special "/?/" pattern produced by 404.html.
+        if (location.search.length > 1 && location.search[1] === "/") {
+          // Decode "~and~" back to "&" ("~and~" is used to safely transport query params).
+          const decoded = location.search
+            .slice(1)
+            .split("&")
+            .map((part) => part.replace(/~and~/g, "&"))
+            .join("?");
+
+          
+          // Avoid double slashes when pathname ends with "/" and decoded starts with "/".
+          const basePath = location.pathname.endsWith("/")
+            ? location.pathname.slice(0, -1)
+            : location.pathname;
+    
+          // Replace the URL without reloading and without adding a history entry.
+          window.history.replaceState(null, "", basePath + decoded + location.hash);
+        }
+      })(window.location);
+    </script>
   </body>
 </html>

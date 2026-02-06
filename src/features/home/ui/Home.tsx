@@ -1,5 +1,6 @@
 import { Link } from "inferno-router";
 import FlashlightOverlay from "./components/FlashlightOverlay";
+import { withBase } from "src/shared/base";
 
 export default function Home() {
     return (
@@ -7,7 +8,7 @@ export default function Home() {
     
             <FlashlightOverlay nightStartHour={19} nightEndHour={7} />
 
-            <Link className="group terminalLink absolute inline-block left-(--home-terminal-link-left) bottom-(--home-terminal-link-bottom)" to="/logs" aria-label="Ouvrir le terminal">
+            <Link className="group terminalLink absolute inline-block left-(--home-terminal-link-left) bottom-(--home-terminal-link-bottom)" to={withBase("/logs")} aria-label="Ouvrir le terminal">
                 <img className="
                 block w-auto h-[80dvh] 2xl:min-h-[40.5vmax]
                 cursor-pointer transition-transform transition-filter duration-200
@@ -16,7 +17,7 @@ export default function Home() {
                 [@media(hover:none)]:[animation:var(--zoom-bright)]
                 " src="images/terminal.png" alt="Terminal" />
             </Link>
-            <Link className="group securityLink hidden xl:inline-block absolute right-[23vw] bottom-[40.5vh]" to="/r8a2" aria-label="Voir la sécurité">
+            <Link className="group securityLink hidden xl:inline-block absolute right-[23vw] bottom-[40.5vh]" to={withBase("/r8a2")} aria-label="Voir la sécurité">
                 <img className="
                 block w-[10dvw] h-auto
                 cursor-pointer transition-transform transition-filter duration-200
